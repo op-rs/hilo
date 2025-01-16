@@ -3,7 +3,7 @@
 use alloy_eips::eip1898::BlockNumberOrTag;
 use alloy_network::AnyNetwork;
 use alloy_primitives::{Bytes, B256};
-use alloy_provider::{ReqwestProvider, RootProvider /* , ext::EngineApi */};
+use alloy_provider::{ReqwestProvider, RootProvider};
 use alloy_rpc_client::RpcClient;
 use alloy_rpc_types_engine::{
     ExecutionPayloadEnvelopeV2, ExecutionPayloadFieldV2, ExecutionPayloadInputV2,
@@ -19,8 +19,8 @@ use alloy_transport_http::{
 };
 use async_trait::async_trait;
 use http_body_util::Full;
-use op_alloy_genesis::RollupConfig;
-use op_alloy_protocol::{BatchValidationProvider, BlockInfo, L2BlockInfo};
+use maili_genesis::RollupConfig;
+use maili_protocol::{BatchValidationProvider, BlockInfo, L2BlockInfo};
 use op_alloy_provider::ext::engine::OpEngineApi;
 use op_alloy_rpc_types_engine::{OpExecutionPayloadEnvelopeV3, OpPayloadAttributes};
 use std::sync::Arc;
@@ -66,7 +66,7 @@ impl EngineClient {
     /// Returns which fork choice version to use based on the timestamp
     /// and rollup config.
     pub fn fork_choice_version(&self, timestamp: u64) -> u64 {
-        // TODO: replace this with https://github.com/alloy-rs/op-alloy/pull/321
+        // TODO: replace this with https://github.com/alloy-rs/maili/pull/321
         //       once it's merged and updated in kona.
         if self.cfg.ecotone_time.is_some_and(|t| timestamp >= t) {
             // Cancun

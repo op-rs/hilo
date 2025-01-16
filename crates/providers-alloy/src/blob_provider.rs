@@ -7,7 +7,7 @@ use alloy_primitives::{map::HashMap, B256};
 use async_trait::async_trait;
 use eyre::{eyre, Result};
 use kona_derive::{errors::BlobProviderError, traits::BlobProvider};
-use op_alloy_protocol::BlockInfo;
+use maili_protocol::BlockInfo;
 use parking_lot::Mutex;
 use tracing::warn;
 use url::Url;

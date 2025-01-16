@@ -21,8 +21,8 @@ alloy-transport.workspace = true
 alloy-primitives.workspace = true
 alloy-rpc-types-engine = { workspace = true, features = ["jwt", "serde"] }
 
-# op-alloy
-op-alloy-genesis = { workspace = true, features = ["serde"] }
+# maili
+maili-genesis = { workspace = true, features = ["serde"] }
 
 # Misc
 serde.workspace = true
@@ -32,4 +32,4 @@ url = { workspace = true, features = ["serde"] }
 
 [dev-dependencies]
 serde_json.workspace = true
-op-alloy-registry.workspace = true
+maili-registry.workspace = true

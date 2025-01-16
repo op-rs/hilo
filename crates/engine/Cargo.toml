@@ -31,11 +31,13 @@ alloy-transport-http = { workspace = true, features = ["jwt-auth"] }
 alloy-rpc-types-engine = { workspace = true, features = ["jwt", "serde"] }
 
 # Op Alloy
-op-alloy-genesis.workspace = true
 op-alloy-provider.workspace = true
-op-alloy-consensus.workspace = true
-op-alloy-protocol.workspace = true
 op-alloy-rpc-types-engine.workspace = true
+op-alloy-consensus.workspace = true
+
+# Maili
+maili-genesis.workspace = true
+maili-protocol.workspace = true
 
 # Misc
 async-trait.workspace = true

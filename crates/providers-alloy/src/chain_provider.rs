@@ -11,7 +11,7 @@ use kona_derive::{
     traits::ChainProvider,
 };
 use lru::LruCache;
-use op_alloy_protocol::BlockInfo;
+use maili_protocol::BlockInfo;
 use std::{boxed::Box, num::NonZeroUsize, vec::Vec};
 
 const CACHE_SIZE: usize = 16;

@@ -1,5 +1,6 @@
 //! Providers that use alloy provider types on the backend.
 
+use alloy_consensus::Block;
 use alloy_primitives::{Bytes, U64};
 use alloy_provider::{Provider, ReqwestProvider};
 use alloy_rlp::Decodable;
@@ -10,9 +11,9 @@ use kona_derive::{
     traits::L2ChainProvider,
 };
 use lru::LruCache;
-use op_alloy_consensus::OpBlock;
-use op_alloy_genesis::{RollupConfig, SystemConfig};
-use op_alloy_protocol::{to_system_config, BatchValidationProvider, L2BlockInfo};
+use maili_genesis::{RollupConfig, SystemConfig};
+use maili_protocol::{to_system_config, BatchValidationProvider, L2BlockInfo};
+use op_alloy_consensus::OpTxEnvelope;
 use std::{boxed::Box, num::NonZeroUsize, sync::Arc};
 
 const CACHE_SIZE: usize = 16;
@@ -30,7 +31,7 @@ pub struct AlloyL2ChainProvider {
     /// The rollup configuration.
     rollup_config: Arc<RollupConfig>,
     /// `block_by_number` LRU cache.
-    block_by_number_cache: LruCache<u64, OpBlock>,
+    block_by_number_cache: LruCache<u64, Block<OpTxEnvelope>>,
     /// `l2_block_info_by_number` LRU cache.
     l2_block_info_by_number_cache: LruCache<u64, L2BlockInfo>,
     /// `system_config_by_l2_hash` LRU cache.
@@ -105,6 +106,7 @@ impl From<AlloyL2ChainProviderError> for PipelineErrorKind {
 #[async_trait]
 impl BatchValidationProvider for AlloyL2ChainProvider {
     type Error = AlloyL2ChainProviderError;
+    type Transaction = OpTxEnvelope;
 
     async fn l2_block_info_by_number(&mut self, number: u64) -> Result<L2BlockInfo, Self::Error> {
         if let Some(l2_block_info) = self.l2_block_info_by_number_cache.get(&number) {
@@ -128,7 +130,10 @@ impl BatchValidationProvider for AlloyL2ChainProvider {
         Ok(l2_block_info)
     }
 
-    async fn block_by_number(&mut self, number: u64) -> Result<OpBlock, Self::Error> {
+    async fn block_by_number(
+        &mut self,
+        number: u64,
+    ) -> Result<Block<Self::Transaction>, Self::Error> {
         if let Some(block) = self.block_by_number_cache.get(&number) {
             return Ok(block.clone());
         }
@@ -141,7 +146,7 @@ impl BatchValidationProvider for AlloyL2ChainProvider {
                 return Err(AlloyL2ChainProviderError::BlockNotFound(number));
             }
         };
-        let block = match OpBlock::decode(&mut raw_block.as_ref()) {
+        let block: Block<Self::Transaction> = match Block::decode(&mut raw_block.as_ref()) {
             Ok(b) => b,
             Err(_) => {
                 return Err(AlloyL2ChainProviderError::OpBlockDecode(number));

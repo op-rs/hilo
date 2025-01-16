@@ -9,9 +9,9 @@ use kona_derive::{
     errors::{PipelineError, PipelineErrorKind},
     traits::L2ChainProvider,
 };
-use op_alloy_consensus::OpBlock;
-use op_alloy_genesis::{RollupConfig, SystemConfig};
-use op_alloy_protocol::{BatchValidationProvider, BlockInfo, L2BlockInfo};
+use maili_genesis::{RollupConfig, SystemConfig};
+use maili_protocol::{BatchValidationProvider, BlockInfo, L2BlockInfo};
+use op_alloy_consensus::{OpBlock, OpTxEnvelope};
 use parking_lot::RwLock;
 
 /// An in-memory [L2ChainProvider].
@@ -97,6 +97,7 @@ impl core::error::Error for InMemoryL2ChainProviderError {}
 #[async_trait]
 impl BatchValidationProvider for InMemoryL2ChainProvider {
     type Error = InMemoryL2ChainProviderError;
+    type Transaction = OpTxEnvelope;
 
     /// Returns the [L2BlockInfo] given a block number.
     ///

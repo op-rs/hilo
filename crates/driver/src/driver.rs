@@ -141,7 +141,7 @@ where
         loop {
             tokio::select! {
                 result = driver.advance_to_target(&self.cfg.rollup_config, None) => match result {
-                    Ok((bn, hash)) => {
+                    Ok((bn, hash, _output_root)) => {
                         error!("Driver unexpectedly stopped at target block: {} {}", bn, hash);
                     }
                     Err(e) => {

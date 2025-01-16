@@ -3,8 +3,8 @@
 use alloy_rpc_types_engine::JwtSecret;
 use kona_derive::traits::ChainProvider;
 use kona_driver::PipelineCursor;
-use op_alloy_genesis::RollupConfig;
-use op_alloy_protocol::{BatchValidationProvider, BlockInfo, L2BlockInfo};
+use maili_genesis::RollupConfig;
+use maili_protocol::{BatchValidationProvider, BlockInfo, L2BlockInfo};
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;
 use url::Url;

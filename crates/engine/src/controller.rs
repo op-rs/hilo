@@ -11,9 +11,9 @@ use alloy_rpc_types_engine::{
 use async_trait::async_trait;
 use hilo_providers_alloy::AlloyL2ChainProvider;
 use kona_driver::Executor;
+use maili_genesis::RollupConfig;
+use maili_protocol::{BatchValidationProvider, BlockInfo};
 use op_alloy_consensus::OpBlock;
-use op_alloy_genesis::RollupConfig;
-use op_alloy_protocol::{BatchValidationProvider, BlockInfo};
 use op_alloy_rpc_types_engine::OpPayloadAttributes;
 use std::{sync::Arc, time::Duration};
 use tokio::time::sleep;

@@ -14,8 +14,8 @@ use kona_derive::{
     types::{PipelineResult, Signal, StepResult},
 };
 use kona_driver::{DriverPipeline, PipelineCursor};
-use op_alloy_genesis::{RollupConfig, SystemConfig};
-use op_alloy_protocol::{BlockInfo, L2BlockInfo};
+use maili_genesis::{RollupConfig, SystemConfig};
+use maili_protocol::{BlockInfo, L2BlockInfo};
 use op_alloy_rpc_types_engine::OpAttributesWithParent;
 use std::{boxed::Box, sync::Arc};
 

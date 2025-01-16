@@ -1,7 +1,7 @@
 //! Contains an epoch type.
 
 use alloy_primitives::B256;
-use op_alloy_protocol::BlockInfo;
+use maili_protocol::BlockInfo;
 
 /// L1 epoch block
 #[derive(Copy, Clone, Debug, Default, PartialEq, Eq)]
