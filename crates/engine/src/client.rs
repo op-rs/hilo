@@ -66,7 +66,7 @@ impl EngineClient {
     /// Returns which fork choice version to use based on the timestamp
     /// and rollup config.
     pub fn fork_choice_version(&self, timestamp: u64) -> u64 {
-        // TODO: replace this with https://github.com/alloy-rs/maili/pull/321
+        // TODO: replace this with https://github.com/alloy-rs/op-alloy/pull/321
         //       once it's merged and updated in kona.
         if self.cfg.ecotone_time.is_some_and(|t| timestamp >= t) {
             // Cancun
