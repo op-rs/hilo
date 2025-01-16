@@ -13,7 +13,7 @@ use kona_derive::{
 use lru::LruCache;
 use maili_genesis::{RollupConfig, SystemConfig};
 use maili_protocol::{to_system_config, BatchValidationProvider, L2BlockInfo};
-use op_alloy_consensus::OpTxEnvelope;
+use op_alloy_consensus::{OpBlock, OpTxEnvelope};
 use std::{boxed::Box, num::NonZeroUsize, sync::Arc};
 
 const CACHE_SIZE: usize = 16;
@@ -130,10 +130,7 @@ impl BatchValidationProvider for AlloyL2ChainProvider {
         Ok(l2_block_info)
     }
 
-    async fn block_by_number(
-        &mut self,
-        number: u64,
-    ) -> Result<Block<Self::Transaction>, Self::Error> {
+    async fn block_by_number(&mut self, number: u64) -> Result<OpBlock, Self::Error> {
         if let Some(block) = self.block_by_number_cache.get(&number) {
             return Ok(block.clone());
         }
@@ -146,7 +143,7 @@ impl BatchValidationProvider for AlloyL2ChainProvider {
                 return Err(AlloyL2ChainProviderError::BlockNotFound(number));
             }
         };
-        let block: Block<Self::Transaction> = match Block::decode(&mut raw_block.as_ref()) {
+        let block = match OpBlock::decode(&mut raw_block.as_ref()) {
             Ok(b) => b,
             Err(_) => {
                 return Err(AlloyL2ChainProviderError::OpBlockDecode(number));
