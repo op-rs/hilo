@@ -14,11 +14,10 @@ the [derivation pipeline][derivation] of the L2 payloads from L1 transactions.
 cargo run --bin node
 ```
 
-
 <!-- Links -->
 
-[hilo]: https://github.com/anton-rs/hilo
-[kona]: https://github.com/anton-rs/kona
+[hilo]: https://github.com/op-rs/hilo
+[kona]: https://github.com/op-rs/kona
 [reth]: https://github.com/paradigmxyz/reth
 [exex]: https://www.paradigm.xyz/2024/05/reth-exex
 [opstack]: https://docs.optimism.io/
