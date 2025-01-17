@@ -22,9 +22,11 @@ alloy-consensus.workspace = true
 alloy-primitives = { workspace = true, features = ["map"] }
 
 # Op Alloy
-op-alloy-genesis.workspace = true
-op-alloy-protocol.workspace = true
 op-alloy-consensus.workspace = true
+
+# Maili
+maili-genesis.workspace = true
+maili-protocol.workspace = true
 
 # Reth
 reth-provider.workspace = true

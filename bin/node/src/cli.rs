@@ -9,8 +9,8 @@ use tracing::debug;
 use url::Url;
 
 use alloy_rpc_types_engine::JwtSecret;
-use op_alloy_genesis::RollupConfig;
-use op_alloy_registry::ROLLUP_CONFIGS;
+use maili_genesis::RollupConfig;
+use maili_registry::ROLLUP_CONFIGS;
 
 use hilo_engine::ValidationMode;
 use hilo_node::SyncMode;

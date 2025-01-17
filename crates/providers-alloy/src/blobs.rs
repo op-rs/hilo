@@ -4,7 +4,7 @@ use alloy_eips::eip4844::{Blob, BlobTransactionSidecarItem, IndexedBlobHash};
 use alloy_rpc_types_beacon::sidecar::BlobData;
 use async_trait::async_trait;
 use kona_derive::{errors::BlobProviderError, traits::BlobProvider};
-use op_alloy_protocol::BlockInfo;
+use maili_protocol::BlockInfo;
 use std::{
     boxed::Box,
     string::{String, ToString},

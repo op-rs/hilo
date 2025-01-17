@@ -4,7 +4,7 @@ use crate::globals::GlobalArgs;
 use clap::Args;
 use eyre::Result;
 use hilo_net::driver::NetworkDriver;
-use op_alloy_registry::ROLLUP_CONFIGS;
+use maili_registry::ROLLUP_CONFIGS;
 use std::net::{IpAddr, Ipv4Addr, SocketAddr};
 
 /// The gossip subcommand.

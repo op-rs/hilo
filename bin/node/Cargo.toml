@@ -20,9 +20,9 @@ hilo-engine.workspace = true
 alloy-primitives.workspace = true
 alloy-rpc-types-engine = { workspace = true, features = ["jwt"] }
 
-# op-alloy
-op-alloy-genesis.workspace = true
-op-alloy-registry.workspace = true
+# maili
+maili-genesis.workspace = true
+maili-registry.workspace = true
 
 # Workspace
 url.workspace = true

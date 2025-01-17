@@ -15,8 +15,8 @@ rust-version.workspace = true
 # Local
 hilo-net.workspace = true
 
-# op-alloy
-op-alloy-registry.workspace = true
+# maili
+maili-registry.workspace = true
 
 # Workspace
 eyre.workspace = true

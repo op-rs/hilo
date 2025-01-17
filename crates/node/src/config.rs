@@ -2,7 +2,7 @@
 
 use crate::SyncMode;
 use alloy_rpc_types_engine::JwtSecret;
-use op_alloy_genesis::RollupConfig;
+use maili_genesis::RollupConfig;
 use serde::{Deserialize, Serialize};
 use url::Url;
 
@@ -90,7 +90,7 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
-    use op_alloy_registry::ROLLUP_CONFIGS;
+    use maili_registry::ROLLUP_CONFIGS;
 
     #[test]
     fn test_roundtrip_config() {

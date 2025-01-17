@@ -7,7 +7,7 @@ use alloy_rpc_types_engine::{
     ForkchoiceState, ForkchoiceUpdated, PayloadId, PayloadStatus,
 };
 use async_trait::async_trait;
-use op_alloy_protocol::L2BlockInfo;
+use maili_protocol::L2BlockInfo;
 use op_alloy_rpc_types_engine::{OpExecutionPayloadEnvelopeV3, OpPayloadAttributes};
 
 /// Engine trait specifies the interface between the hilo-engine and the engine-api.

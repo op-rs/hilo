@@ -1,7 +1,7 @@
 //! Chain Provider
 
 use alloc::{boxed::Box, collections::vec_deque::VecDeque, string::ToString, sync::Arc, vec::Vec};
-use alloy_primitives::{map::HashMap, B256};
+use alloy_primitives::{map::HashMap, PrimitiveSignature, B256};
 
 use alloy_consensus::{
     Header, Receipt, Signed, TxEip1559, TxEip2930, TxEip4844, TxEip4844Variant, TxEnvelope,
@@ -13,7 +13,7 @@ use kona_derive::{
     errors::{PipelineError, PipelineErrorKind},
     traits::ChainProvider,
 };
-use op_alloy_protocol::BlockInfo;
+use maili_protocol::BlockInfo;
 use parking_lot::RwLock;
 use reth_primitives::Transaction;
 use reth_provider::Chain;
@@ -136,8 +136,7 @@ impl InMemoryChainProviderInner {
                     blob_gas_used: header.blob_gas_used,
                     excess_blob_gas: header.excess_blob_gas,
                     parent_beacon_block_root: header.parent_beacon_block_root,
-                    requests_hash: header.requests_hash,
-                    target_blobs_per_block: None,
+                    requests_hash: header.requests_root,
                 },
             );
         }
@@ -180,7 +179,7 @@ impl InMemoryChainProviderInner {
                     .iter()
                     .flat_map(|r| {
                         r.as_ref().map(|r| Receipt {
-                            cumulative_gas_used: r.cumulative_gas_used as u128,
+                            cumulative_gas_used: r.cumulative_gas_used,
                             logs: r.logs.clone(),
                             status: alloy_consensus::Eip658Value::Eip658(r.success),
                         })
@@ -193,7 +192,7 @@ impl InMemoryChainProviderInner {
     /// Commits [TxEnvelope]s to the provider.
     fn commit_txs(&mut self, chain: &Arc<Chain>) {
         for b in chain.blocks_iter() {
-            let txs = b.transactions().iter().flat_map(reth_to_alloy_tx).collect();
+            let txs = b.transactions().flat_map(reth_to_alloy_tx).collect();
             self.hash_to_txs.insert(b.hash(), txs);
         }
     }
@@ -306,7 +305,8 @@ impl ChainProvider for InMemoryChainProvider {
 }
 
 pub fn reth_to_alloy_tx(tx: &reth_primitives::TransactionSigned) -> Option<TxEnvelope> {
-    let sig = tx.signature;
+    let sig = PrimitiveSignature::try_from(tx.signature.as_bytes().as_slice()).ok()?;
+
     let new = match &tx.transaction {
         Transaction::Legacy(l) => {
             let legacy_tx = TxLegacy {

@@ -139,8 +139,7 @@ fn parse_reth_header_to_alloy_rpc(block: &reth_primitives::SealedBlock) -> Heade
             blob_gas_used: block.blob_gas_used,
             excess_blob_gas: block.excess_blob_gas,
             parent_beacon_block_root: block.parent_beacon_block_root,
-            requests_hash: block.requests_hash,
-            target_blobs_per_block: None,
+            requests_hash: block.requests_root,
         },
     }
 }
